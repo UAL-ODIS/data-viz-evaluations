@@ -2,11 +2,14 @@
 # Jeff Oliver
 # jcoliver@arizona.edu
 # 2021-04-07
+# Update 2022-04-04
 
 library(tidyverse)
 library(rmarkdown)
 
-# Create
+eval_year <- "2022"
+
+# This will create
 # 1. Sheet for scoring entries, (or part of it) with FiLa as column heading, 
 #    where FiLa is the first two initials of First and Last names, respectively
 # 2. Single PDF with one entry per page
@@ -19,7 +22,7 @@ library(rmarkdown)
 #       to FiLa.* (acceptable values of *: png, jpg). PDF and gif files were 
 #       *not* renamed, prompting a message that they should be viewed online.
 
-responses <- readr::read_csv(file = "data/responses.csv")
+responses <- readr::read_csv(file = paste0("data/", eval_year, "/responses.csv"))
 
 # Timestamp needs to be converted from character
 responses$Timestamp <- lubridate::as_datetime(x = responses$Timestamp,
@@ -39,10 +42,14 @@ initials <- paste0(substr(x = uniq_responses$`First Name`, start = 1, stop = 2),
                    substr(x = uniq_responses$`Last Name`, start = 1, stop = 2))
 eval_sheet <- data.frame(matrix(nrow = 1, ncol = length(initials)))
 names(eval_sheet) <- initials
-readr::write_csv(x = eval_sheet, file = "output/evaluations.csv")
+if(!dir.exists(paste0("output/", eval_year))) {
+  dir.create(paste0("output/", eval_year))
+}
+readr::write_csv(x = eval_sheet, file = paste0("output/", eval_year, "/evaluations.csv"))
 
 # 2. PDF with one entry per page
 rmarkdown::render(input = "Entries.Rmd", 
                   # output_format = "pdf_document",
-                  output_file = "output/Entries",
-                  params = list(responses = uniq_responses))
+                  output_file = paste0("output/", eval_year, "/Entries"),
+                  params = list(responses = uniq_responses,
+                                eval_year = eval_year))

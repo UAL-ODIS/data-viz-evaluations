@@ -1,12 +1,13 @@
 ---
 title: "Data Visualization Challenge Entries"
 author: "Data Cooperative"
-date: "2021-04-07"
+date: "2022-04-04"
 output:
    pdf_document:
      latex_engine: xelatex
 params: 
   responses: NULL
+  eval_year: NULL
 ---
 
 ```{r setup, include=FALSE}
@@ -43,7 +44,7 @@ for (i in 1:nrow(params$responses)) {
 
   # Grab location of image; assumes they are all FiLa.*, where * is a graphics
   # file extension
-  image_file <- list.files(path = "data/images", 
+  image_file <- list.files(path = paste0("data/", params$eval_year, "/images"), 
                            pattern = paste0(index, ".*"),
                            full.names = TRUE)
   
