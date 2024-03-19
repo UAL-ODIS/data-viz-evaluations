@@ -38,14 +38,19 @@ these images in the Evaluations/images folder on Google Drive.
 5. In the Image links IGNORE file, open the script editor (Extensions > Apps
 Script). There should be one script (Data Viz Evals); update the folder ID in 
 the call to `DriveApp.getFolderById()`. Note this ID will be the URL ID for the
-folder, _not_ the share link ID. Save the script (Save Project) and run (may be
-prompted for authorization, which is OK). Instructions for this approach are at [https://webapps.stackexchange.com/questions/88769/get-share-link-of-multiple-files-in-google-drive-to-put-in-spreadsheet](https://webapps.stackexchange.com/questions/88769/get-share-link-of-multiple-files-in-google-drive-to-put-in-spreadsheet)
+images folder, _not_ the share link ID. Save the script (Save Project) and run 
+(may be prompted for authorization, which is OK). Instructions for this approach 
+are at [https://webapps.stackexchange.com/questions/88769/get-share-link-of-multiple-files-in-google-drive-to-put-in-spreadsheet](https://webapps.stackexchange.com/questions/88769/get-share-link-of-multiple-files-in-google-drive-to-put-in-spreadsheet)
 6. In a spreadsheets editor, open the data/YYYY/responses.csv. Paste the links 
 to image files from (5) into the "Attach static file" column. **Double-check** 
 to make sure the right images line up with the right person. It helps to sort 
 by first, then last name and (temporarily) paste the abbreviated file name into
 the file. This replaces the link to the original file.
-7. Download the renamed image files into the local data/YYYY/images folder.
+7. Download the renamed image files into the local data/YYYY/images folder. 
+Only include those image files that can be represented in the resulting PDF 
+(e.g. png, pdf, jpg files). For entries that rely on an interactive or animated 
+entry, _do not_ include those files in the data/YYYY/images folder. This way, 
+evaluators will be directed to those non-static versions for evaluation.
 8. Update the value for `eval_year` in prepare-evaluations.R and run this 
 script.
 9. Upload the resulting pdf (output/YYYY/Entries.pdf) to the Evaluations folder 

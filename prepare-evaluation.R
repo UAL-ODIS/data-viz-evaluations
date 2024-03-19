@@ -7,7 +7,7 @@
 library(tidyverse)
 library(rmarkdown)
 
-eval_year <- "2023"
+eval_year <- "2024"
 
 # This will create
 # 1. Sheet for scoring entries, (or part of it) with FiLa as column heading, 
@@ -42,6 +42,9 @@ initials <- paste0(substr(x = uniq_responses$`First Name`, start = 1, stop = 2),
                    substr(x = uniq_responses$`Last Name`, start = 1, stop = 2))
 eval_sheet <- data.frame(matrix(nrow = 1, ncol = length(initials)))
 names(eval_sheet) <- initials
+if(!dir.exists("output")) {
+  dir.create("output")
+}
 if(!dir.exists(paste0("output/", eval_year))) {
   dir.create(paste0("output/", eval_year))
 }
